@@ -59,8 +59,9 @@ async fn main() -> Result<()> {
     println!("year: {}", cfg.year);
     println!("day: {}", cfg.day);
     println!("session: {}", cfg.session);
-    let page: String = fetch_page(cfg, "2018/day/1/input").await?;
-    println!("page: {}", page);
+    let page: String = fetch_page(cfg, "2018/day/1").await?;
+    let markdown = html2md::parse_html(&page);
+    println!("page: {}", markdown);
 
     Ok(())
 }
