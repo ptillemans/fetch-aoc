@@ -7,5 +7,8 @@ edition = "2021"
 
 [dependencies]
 anyhow = { version = "1.0.66", features = ["backtrace"] }
+chrono = "0.4.22"
+clap = { version = "4.0.19", features = ["derive", "env"] }
 clap_derive = { version = "4.0.18", features = ["debug"] }
 reqwest = { version = "0.11.12", features = ["cookies"] }
+tokio = { version = "1.21.2", features = ["full"] }
