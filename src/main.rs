@@ -63,9 +63,13 @@ fn create_data_folder(cfg: &Config) -> Result<()> {
     fs::create_dir_all(&cfg.data_folder.as_path()).context("Create data folder")
 }
 
-async fn fetch_challenge(cfg: &Config) -> Result<String> {
+async fn fetch_challenge(cfg: &Config) -> Result<()> {
     let path = format!("{}/day/{}", cfg.year, cfg.day);
-    fetch_page(cfg, &path).await
+    let challenge = fetch_page(cfg, &path).await?;
+    let markdown = html2md::parse_html(&challenge);
+    let filename = cfg.data_folder.join("challenge.md");
+    fs::write(&filename, &markdown)?;
+    Ok(())
 }
 
 async fn fetch_input(cfg: &Config) -> Result<()> {
@@ -84,10 +88,8 @@ async fn main() -> Result<()> {
     println!("day: {}", cfg.day);
     println!("session: {}", cfg.session);
     create_data_folder(&cfg)?;
-    let challenge = fetch_challenge(&cfg).await?;
+    fetch_challenge(&cfg).await?;
     fetch_input(&cfg).await?; 
-    let markdown = html2md::parse_html(&challenge);
-    println!("page: {}", markdown);
 
     Ok(())
 }
