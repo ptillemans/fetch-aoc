@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use std::sync::Arc;
 use std::fs;
 
@@ -21,6 +22,7 @@ struct Config {
     year: u16,
     day: u16,
     session: String,
+    data_folder: PathBuf,
 }
 
 impl Config {
@@ -30,7 +32,8 @@ impl Config {
         let year = cli.year.unwrap_or(now.year() as u16);
         let day = cli.day.unwrap_or(now.day() as u16);
         let session = cli.session;
-        Config { year, day, session }
+        let data_folder = PathBuf::from("data");
+        Config { year, day, session, data_folder }
     }
 }
 
@@ -56,6 +59,10 @@ async fn fetch_page(cfg: &Config, page: &str) -> Result<String> {
         .context("getting page from aoc site")
 }
 
+fn create_data_folder(cfg: &Config) -> Result<()> {
+    fs::create_dir_all(&cfg.data_folder.as_path()).context("Create data folder")
+}
+
 async fn fetch_challenge(cfg: &Config) -> Result<String> {
     let path = format!("{}/day/{}", cfg.year, cfg.day);
     fetch_page(cfg, &path).await
@@ -64,7 +71,7 @@ async fn fetch_challenge(cfg: &Config) -> Result<String> {
 async fn fetch_input(cfg: &Config) -> Result<()> {
     let path = format!("{}/day/{}/input", cfg.year, cfg.day);
     let input = fetch_page(cfg, &path).await?;
-    let filename = format!("data/input.txt");
+    let filename = cfg.data_folder.join("input.txt");
     fs::write(&filename, &input)?;
     Ok(())
 }
@@ -76,6 +83,7 @@ async fn main() -> Result<()> {
     println!("year: {}", cfg.year);
     println!("day: {}", cfg.day);
     println!("session: {}", cfg.session);
+    create_data_folder(&cfg)?;
     let challenge = fetch_challenge(&cfg).await?;
     fetch_input(&cfg).await?; 
     let markdown = html2md::parse_html(&challenge);
