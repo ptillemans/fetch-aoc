@@ -48,7 +48,6 @@ async fn fetch_page(cfg: &Config, page: &str) -> Result<String> {
         .build()?;
 
     let url = aoc_url.join(page)?;
-    println!("fetching {:?}", url);
     client
         .get(url)
         .send()
@@ -127,13 +126,12 @@ fn generate_cargo_toml(cfg: &Config) -> Result<()> {
 #[tokio::main]
 async fn main() -> Result<()> {
     let cfg = Config::new();
-    println!("Hello, world!");
     println!("year: {}", cfg.year);
     println!("day: {}", cfg.day);
-    println!("session: {}", cfg.session);
     fetch_challenge(&cfg).await?;
     fetch_input(&cfg).await?; 
     generate_main_rs(&cfg)?;
     generate_cargo_toml(&cfg)?;
+    println!("Good luck");
     Ok(())
 }
