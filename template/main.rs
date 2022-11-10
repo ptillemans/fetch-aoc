@@ -1,8 +1,9 @@
+use std::str::FromStr;
 
 const INPUT: &str = include_str!("../data/input.txt");
 
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 struct InputModel  {
 }
 
@@ -12,10 +13,10 @@ pub enum AocError {
     ParseError,
 }
         
-impl TryFrom<String> for InputModel {
-    type Error = AocError;
+impl FromStr for InputModel {
+    type Err = AocError;
 
-    fn try_from(_value: String) -> Result<Self, Self::Error> {
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
         todo!()
     }
 }
@@ -29,11 +30,47 @@ fn part2(_input: &InputModel) -> Result<String, AocError> {
 }
 
 fn main() -> Result<(), AocError> {
-    let input:InputModel = InputModel::try_from(INPUT.to_string())?;
+    let input:InputModel = INPUT.parse::<InputModel>()?;
     let part1_result = part1(&input)?;
     println!("Part1: {}", part1_result);
     println!("--------------");
     let part2_result = part2(&input)?;
     println!("Part2: {}", part2_result);
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const TEST_INPUT: &str = "";
+
+    fn input_data() -> InputModel {
+        InputModel {
+        }
+    }
+
+    #[test]
+    fn test_parse() {
+        let actual = TEST_INPUT.parse::<InputModel>().unwrap();
+        let expected = input_data();
+
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn test_part1() {
+        let actual = part1(&input_data()).unwrap();
+        let expected = "";
+
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn test_part2() {
+        let actual = part2(&input_data()).unwrap();
+        let expected = "";
+
+        assert_eq!(actual, expected);
+    }
 }
