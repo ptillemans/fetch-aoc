@@ -24,7 +24,21 @@ fn main() -> Result<(), AocError> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use aoc_{{year}}_{{day}}::tests::input_data;
+
+    const TEST_INPUT: &str = "";
+
+    pub fn input_data() -> InputModel {
+        InputModel {
+        }
+    }
+
+    #[test]
+    fn test_parse() {
+        let actual = TEST_INPUT.parse::<InputModel>().unwrap();
+        let expected = input_data();
+
+        assert_eq!(actual, expected);
+    }
 
     #[test]
     fn test_part1() {
