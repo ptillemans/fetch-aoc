@@ -143,7 +143,8 @@ pub fn add_member_to_workspace(cfg: &Config) -> Result<()> {
     let cargo_contents = fs::read_to_string("Cargo.toml")?;
     let mut doc = cargo_contents.parse::<Document>().context("Parsing Cargo.toml")?;
     let members = doc["workspace"]["members"].as_array_mut().expect("updating members in workspace");
-    if members.iter().any(|v| v.to_string() == project_name(&cfg).to_string()) {
+    if !members.iter().any(|v| v.to_string() == project_name(&cfg).to_string()) {
+        println!("Adding {} to workspace", project_name(&cfg));
         members.push(project_name(&cfg));
     }
     fs::rename("Cargo.toml", "Cargo.bak")?;
