@@ -1,3 +1,4 @@
+#![feature(test)]
 use aoc_{{year}}_{{day}}::{AocError, InputModel};
 
 const INPUT: &str = include_str!("../data/input.txt");
@@ -23,7 +24,9 @@ fn main() -> Result<(), AocError> {
 
 #[cfg(test)]
 mod tests {
+    extern crate test;
     use super::*;
+    use test::Bencher;
 
     const TEST_INPUT: &str = "";
 
@@ -55,4 +58,15 @@ mod tests {
 
         assert_eq!(actual, expected);
     }
+    
+    #[bench]
+    fn bench_part1(b: &mut Bencher) {
+        b.iter(|| part1(&input_data()))
+    }
+
+    #[bench]
+    fn bench_part2(b: &mut Bencher) {
+        b.iter(|| part2(&input_data()))
+    }
+
 }
