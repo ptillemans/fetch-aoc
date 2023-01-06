@@ -12,6 +12,6 @@ clap = { version = "4.0.19", features = ["derive", "env"] }
 clap_derive = { version = "4.0.18", features = ["debug"] }
 html2md = "0.2.13"
 reqwest = { version = "0.11.12", features = ["cookies"] }
-tokio = { version = "1.21.2", features = ["full"] }
+tokio = { version = "1.23.1", features = ["full"] }
 handlebars = "4.3.5"
 toml_edit = { version = "0.15.0", features = ["easy", "perf"] }
