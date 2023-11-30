@@ -1,6 +1,6 @@
 [package]
 name = "fetch-aoc"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,7 +11,7 @@ chrono = "0.4.22"
 clap = { version = "4.0.19", features = ["derive", "env"] }
 clap_derive = { version = "4.0.18", features = ["debug"] }
 html2md = "0.2.13"
-reqwest = { version = "0.11.12", features = ["cookies"] }
+reqwest = { version = "0.11.22", default-features = false, features = ["cookies", "rustls-tls"] }
 tokio = { version = "1.24.2", features = ["full"] }
 handlebars = "4.3.5"
 toml_edit = { version = "0.15.0", features = ["easy", "perf"] }
