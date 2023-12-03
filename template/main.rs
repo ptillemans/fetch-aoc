@@ -67,13 +67,13 @@ mod tests {
     #[bench]
     fn bench_part1(b: &mut Bencher) {
         let data = INPUT.parse::<InputModel>().unwrap();
-        b.iter(|| part1(&input_data()))
+        b.iter(|| part1(&data))
     }
 
     #[bench]
     fn bench_part2(b: &mut Bencher) {
         let data = INPUT.parse::<InputModel>().unwrap();
-        b.iter(|| part2(&input_data()))
+        b.iter(|| part2(&data))
     }
 
 }
