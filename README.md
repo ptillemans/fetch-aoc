@@ -11,6 +11,17 @@ A Custom `AocError` is derived with *thiserror* which is probably overkill. But 
 
 You can specify the date in the command line, which defaults to today's date so a strategic application of a cron job can ensure your scaffold is waiting for the challenge in near realtime.
 
+Development with Nix
+--------------------
+
+Enter a reproducible Rust development shell with the compiler, Cargo,
+`rustfmt`, `clippy`, and `rust-analyzer` available:
+
+    nix develop
+
+The shell also enables Rust backtraces by default. Build and test the project
+from inside it with `cargo build` and `cargo test`.
+
 Installation
 ------------
 
