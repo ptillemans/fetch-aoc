@@ -96,7 +96,7 @@ const MAIN_TEMPLATE: &str = include_str!("../template/main.rs");
 const LIB_TEMPLATE: &str = include_str!("../template/lib.rs");
 const CARGO_TEMPLATE: &str = include_str!("../template/Cargo.toml");
 
-fn create_template_engine(_cfg: &Config) -> Result<Handlebars> {
+fn create_template_engine(_cfg: &Config) -> Result<Handlebars<'_>> {
     let mut handlebars = Handlebars::new();
     handlebars.register_template_string("main_rs", MAIN_TEMPLATE)?;
     handlebars.register_template_string("lib_rs", LIB_TEMPLATE)?;
